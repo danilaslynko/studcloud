@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"/>
+
+<h2 th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}">
+</h2>
+
+<div th:each="file : ${user.getFiles()}" class="mainContainer">
+    <a th:href="'/files/' + ${file.getId()}"
+       th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
+</div>
+</div>
+</body>
+</html>

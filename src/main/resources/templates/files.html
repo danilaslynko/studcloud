@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Все файлы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"/>
+
+<div class="container mt-5">
+    <form>
+    <h3>Кафедра</h3>
+    <select class="form-control" name="departmentID" id="departmentID">
+        <option value="0">Все</option>
+        <option th:each="department : ${departments}"
+                th:value="${department.getId()}"
+                th:text="${department.getName()}">
+        </option>
+    </select>
+    <h3>Препод</h3>
+    <select class="form-control" name="teacherID" id="teacherID">
+        <option value="0">Все</option>
+        <option th:each="teacher : ${teachers}"
+                th:value="${teacher.getId()}"
+                th:text="${teacher.getName()}">
+        </option>
+    </select>
+    <h3>Предмет</h3>
+    <select class="form-control" name="subjectID" id="subjectID">
+        <option value="0">Все</option>
+        <option th:each="subj : ${subjects}"
+                th:value="${subj.getId()}"
+                th:text="${subj.getName()}">
+        </option>
+    </select>
+    <button type="submit" class="btn btn-success">Применить</button>
+    </form>
+</div>
+<div th:each="file : ${files}" class="mainContainer">
+    <a th:href="'/files/' + ${file.getId()}"
+       th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
+</div>
+
+<footer th:insert="blocks/footer :: footer"/>
+</body>
+</html>

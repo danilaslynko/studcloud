@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>StudCloud - главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div>
+    <h1>Файл</h1>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <form th:action="'/file/' + ${file.getId()} + '/edit/delete'" method="post">
+            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+            <input type="hidden" th:name="file" th:value="${file}">
+            <button type="submit" class="btn btn-success">Удалить файл</button>
+        </form>
+    </div>
+    <div>
+    </div>
+    <div class="alert alert-info mt-2">
+        <h4>
+            Обсуждение
+        </h4>
+        <div th:each="message : ${file.getComments()}" class="alert alert-info mt-2">
+            <form th:action="'/file/' + ${file.getId()} + '/edit/' + ${message.getId()} + 'deleteComment'" method="post">
+                <a th:text="'Дата: ' + ${message.getDate()}"/>
+                <br>
+                <a th:text="'Пользователь: ' + ${message.getUserName()}"/>
+                <br>
+                <a th:text="'Сообщение: ' + ${message.getMessage()}"/>
+                <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                <button type="submit" class="btn btn-success">Удалить комментарий</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

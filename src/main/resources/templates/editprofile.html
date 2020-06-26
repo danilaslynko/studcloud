@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div>
+    Изменение данных пользователя
+</div>
+<form action="/user/update" class="alert alert-info mt-2" method="post">
+    <label>
+        <input type="email" name="email" placeholder="Электронная почта"/>
+    </label>
+    <br>
+    <label>
+        <input type="password" name="password" placeholder="Пароль" pattern="((?=.*\d)(?=.*[a-zA-Z]).{8,20})"/>
+    </label>
+    <br>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

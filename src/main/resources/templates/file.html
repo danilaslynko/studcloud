@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>StudCloud - главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div>
+    <h1>Файл</h1>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <form th:action="'/file/' + ${file.get().getId()} + '/edit'" method="post">
+            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+            <input type="hidden" name="fileID" th:value="${file.get().getId()}">
+            <button type="submit" class="btn btn-success">Редактировать</button>
+        </form>
+    </div>
+    <div>
+        <a th:text="${file.get().getUniversity().getName()}"></a><br>
+        <a th:text="${file.get().getDepartment().getName()}"></a><br>
+        <a th:text="${file.get().getTeacher().getName()}"></a><br>
+        <a th:text="${file.get().getSubj().getName()}"></a><br>
+        <a th:href="'/user/' + ${file.get().getUser().getId()}" th:text="'Добавил ' + ${file.get().getUser().getUsername()} + ', ' + ${file.get().getDate().toString()}"></a><br>
+        <a th:href="'/files/' + ${file.get().getId()} + '/download/'" th:text="${file.get().getName()}"></a>
+    </div>
+    <div class="alert alert-info mt-2">
+    <h4>
+        Обсуждение
+    </h4>
+        <div sec:authorize="isAuthenticated()">
+            <a>
+                Новый комментарий
+            </a>
+            <form method="post">
+                <input type="text" name="message" placeholder="Сообщение" class="form-control" required><br>
+                <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
+                <button type="submit" class="btn btn-success">Отправить</button>
+            </form>
+        </div>
+        <div th:each="message : ${file.get().getComments()}" class="alert alert-info mt-2">
+            <a th:text="'Дата: ' + ${message.getDate()}"/>
+            <br>
+            <a th:text="'Пользователь: ' + ${message.getUserName()}"/>
+            <br>
+            <a th:text="'Сообщение: ' + ${message.getMessage()}"/>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="blocks/footer :: footer"></footer>
+</body>
+</html>

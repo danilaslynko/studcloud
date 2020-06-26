@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление файла</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"/>
+<div class="container mt-5 mb-5">
+    <h1>Добавление файла</h1>
+    <form action="/add" method="post" enctype="multipart/form-data">
+        <input type="text" name="universityName" placeholder="ВУЗ" class="form-control" required><br>
+        <input type="text" name="departmentName" placeholder="Департамент" class="form-control" required><br>
+        <input type="text" name="teacherName" placeholder="Имя преподавателя" class="form-control" required><br>
+        <input type="text" name="subjectName" placeholder="Предмет" class="form-control" required><br>
+        <input type="text" name="fileName" placeholder="Имя файла" class="form-control" required><br>
+        <input type="file" name="file" required><br>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <button type="submit" class="btn btn-success">Добавить файл</button>
+    </form>
+</div>
+<footer th:insert="blocks/footer :: footer"/>
+</body>
+</html>

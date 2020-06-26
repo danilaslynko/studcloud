@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"/>
+
+<div th:text="${message?.toString()}"/>
+    <form action="/login" method="post" class="mainContainer">
+        <label>
+            <input type="text" name="username" placeholder="Имя пользователя"/>
+        </label>
+        <label>
+            <input type="password" name="password" placeholder="Пароль"/>
+        </label>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <button type="submit">Войти</button>
+    </form>
+<a href="/registration">
+    Регистрация
+</a>
+<footer th:insert="blocks/footer :: footer"/>
+</body>
+</html>

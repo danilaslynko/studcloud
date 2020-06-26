@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Все файлы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"/>
+
+<div class="container mt-5">
+    <h1>Вузы</h1>
+    <div th:each="university : ${universities}" class="alert alert-info mt-2">
+        <a
+                th:href="'/files/universities/' + ${university.getName()} + '?departmentID=0&teacherID=0&subjectID=0'"
+                th:text="${university.getName()}">
+        </a>
+    </div>
+</div>
+
+<footer th:insert="blocks/footer :: footer"/>
+</body>
+</html>
