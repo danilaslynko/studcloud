@@ -1,5 +1,3 @@
-use studcloud_db;
-
 create table comment
 (
     id bigint not null auto_increment,
