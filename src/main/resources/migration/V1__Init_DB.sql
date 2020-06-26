@@ -1,4 +1,4 @@
-
+create schema studcloud_db;
 
 create table comment
     (
