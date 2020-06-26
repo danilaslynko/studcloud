@@ -4,6 +4,7 @@ import com.studentcloud.dbaccess.auth.Role;
 import com.studentcloud.dbaccess.auth.User;
 import com.studentcloud.dbaccess.controller.ControllerUtils;
 import com.studentcloud.dbaccess.repo.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,15 +27,16 @@ public class UserService implements UserDetailsService {
 
     private final UserRepo userRepo;
     private final MailService mailService;
-    private final PasswordEncoder encoder;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Value("${hostname}")
     String hostname;
 
-    public UserService(UserRepo userRepo, MailService mailService, PasswordEncoder encoder) {
+    public UserService(UserRepo userRepo, MailService mailService) {
         this.userRepo = userRepo;
         this.mailService = mailService;
-        this.encoder = encoder;
     }
 
     public Optional<User> findById(Long id) {
