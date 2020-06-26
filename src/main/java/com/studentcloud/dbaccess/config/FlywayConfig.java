@@ -24,6 +24,7 @@ public class FlywayConfig {
                 datasourceURL,
                 datasourceUsername,
                 datasourcePassword);
+        flyway.repair();
         return flyway;
     }
 }
