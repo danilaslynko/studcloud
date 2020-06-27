@@ -4,8 +4,6 @@ import com.studentcloud.dbaccess.entities.*;
 import com.studentcloud.dbaccess.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,7 +15,6 @@ import org.springframework.util.StringUtils;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletContext;
-import java.awt.datatransfer.DataFlavor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
