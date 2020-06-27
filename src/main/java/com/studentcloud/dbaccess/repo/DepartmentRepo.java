@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
 
-public interface DepartmentRepo extends CrudRepository<Department, Integer> {
+public interface DepartmentRepo extends CrudRepository<Department, Long> {
 
     boolean existsByName(String name);
 

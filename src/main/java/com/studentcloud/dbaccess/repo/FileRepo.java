@@ -14,11 +14,13 @@ public interface FileRepo extends CrudRepository<File, Long> {
 
     Set<File> findAllByTeacher_Name(String teacher_name);
 
-    Set<File> findAllByDepartment_Id(Integer departmentID);
+    Set<File> findAllByDepartment_Id(Long departmentID);
 
-    Set<File> findAllByTeacher_Id(Integer teacherID);
+    Set<File> findAllByTeacher_Id(Long teacherID);
 
-    Set<File> findAllBySubj_Id(Integer subjID);
+    Set<File> findAllBySubj_Id(Long subjID);
+
+    Set<File> findAllByUniversity_NameAndDepartment_IdAndTeacher_IdAndSubj_Id(String universityName, Long departmentID, Long teacherID, Long subjID);
 
     Set<File> findAllByUser(User user);
 }

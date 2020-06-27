@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Регистрация</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../static/registration.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
 
-<div>
+<h2>
     Новый пользователь
-</div>
+</h2>
 <form action="/registration" method="post" class="alert alert-info mt-2">
     <label>
         <input type="email" name="email" placeholder="Электронная почта"/>
@@ -35,7 +36,8 @@
     </label>
     <span th:text="${passwordsDoesntEqualsError?.toString()}"/>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-    <button type="submit">Зарегистрироваться</button>
+    <br>
+    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
 </form>
 
 <footer th:insert="blocks/footer :: footer"></footer>

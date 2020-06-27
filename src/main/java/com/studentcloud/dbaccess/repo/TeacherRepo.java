@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
 
-public interface TeacherRepo extends CrudRepository<Teacher, Integer> {
+public interface TeacherRepo extends CrudRepository<Teacher, Long> {
 
     boolean existsByName(String name);
 

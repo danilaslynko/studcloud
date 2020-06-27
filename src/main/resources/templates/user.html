@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../static/user.css">
 <head>
     <meta charset="UTF-8">
     <title>Профиль</title>
@@ -9,13 +10,14 @@
 <body>
 <header th:insert="blocks/header :: header"/>
 
-<h2 th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}">
-</h2>
+<h2 th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}"></h2>
 
-<div th:each="file : ${user.getFiles()}" class="mainContainer">
+<div th:each="file : ${user.getFiles()}" class="container mt-5">
     <a th:href="'/files/' + ${file.getId()}"
-       th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
+       th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"
+        class=""/>
 </div>
-</div>
+
+<footer th:insert="blocks/footer :: footer"/>
 </body>
 </html>

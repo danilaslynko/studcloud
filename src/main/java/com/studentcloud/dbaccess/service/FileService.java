@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,9 +44,9 @@ public class FileService {
 
     public Set<File> getFiles(
             String universityName,
-            Integer departmentID,
-            Integer teacherID,
-            Integer subjectID
+            Long departmentID,
+            Long teacherID,
+            Long subjectID
     ) {
         Set<File> filesByUniversity = fileRepo.findAllByUniversity_Name(universityName);
 
@@ -75,7 +76,7 @@ public class FileService {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<File> file = this.findById(fileID);
 
-        name = name == null || name.length() == 0 ? "Анон" : name;
+        name = StringUtils.isEmpty(name) ? "Анон" : name;
 
         Comment comment = new Comment(file.get(), name, message, new java.sql.Date((new java.util.Date()).getTime()));
         file.get().getComments().add(comment);
@@ -94,27 +95,25 @@ public class FileService {
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
         HttpHeaders headers = new HttpHeaders();
 
+        // формирование хттп заголовков
         headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
 
-        ResponseEntity<Object> responseEntity =
-                ResponseEntity.ok()
-                        .headers(headers)
-                        .contentLength(file.length())
-                        .contentType(MediaType.parseMediaType("application/txt"))
-                        .body(resource);
-
-        return responseEntity;
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType("application/txt"))
+                .body(resource);
     }
 
     public void getUniversityFields(
             Model model,
             String universityName,
-            Integer departmentID,
-            Integer teacherID,
-            Integer subjectID
+            Long departmentID,
+            Long teacherID,
+            Long subjectID
     ) {
         University university = this.findUniversity(universityName);
 
@@ -126,7 +125,7 @@ public class FileService {
         model.addAttribute("teachers", teachers);
         model.addAttribute("subjects", subjects);
 
-        Set<File> files = this.getFiles(universityName, departmentID, teacherID, subjectID);
+        Set<File> files = getFiles(universityName, departmentID, teacherID, subjectID);
         model.addAttribute("files", files);
     }
 

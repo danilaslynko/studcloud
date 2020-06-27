@@ -34,9 +34,9 @@ public class FilesController {
     public String filesInUniversity(
             Model model,
             @PathVariable String universityName,
-            @RequestParam Integer departmentID,
-            @RequestParam Integer teacherID,
-            @RequestParam Integer subjectID
+            @RequestParam Long departmentID,
+            @RequestParam Long teacherID,
+            @RequestParam Long subjectID
     ) {
         fileService.getUniversityFields(model, universityName, departmentID, teacherID, subjectID);
 

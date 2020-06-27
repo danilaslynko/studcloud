@@ -1,0 +1,11 @@
+* {
+    margin-left: 0;
+    margin-top: 0;
+}
+.fileInfo {
+    margin-left: 3%;
+}
+.comment {
+    margin-left: 3%;
+    background: #909090;
+}
