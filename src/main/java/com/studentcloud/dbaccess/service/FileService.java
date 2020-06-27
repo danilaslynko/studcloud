@@ -2,7 +2,10 @@ package com.studentcloud.dbaccess.service;
 
 import com.studentcloud.dbaccess.entities.*;
 import com.studentcloud.dbaccess.repo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.ServletContext;
+import java.awt.datatransfer.DataFlavor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Optional;
@@ -25,6 +31,9 @@ public class FileService {
     final DepartmentRepo departmentRepo;
     final SubjectRepo subjectRepo;
     final CommentRepo commentRepo;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -50,12 +59,15 @@ public class FileService {
     ) {
         Set<File> filesByUniversity = fileRepo.findAllByUniversity_Name(universityName);
 
-        Set<File> filesByDepartment = (departmentID != null && !departmentID.equals(0)) ?
-                fileRepo.findAllByDepartment_Id(departmentID) : filesByUniversity;
-        Set<File> filesByTeacher = (teacherID != null && !teacherID.equals(0)) ?
-                fileRepo.findAllByTeacher_Id(teacherID) : filesByUniversity;
-        Set<File> filesBySubj = (subjectID != null && !subjectID.equals(0)) ?
-                fileRepo.findAllBySubj_Id(subjectID) : filesByUniversity;
+        Set<File> filesByDepartment = !(departmentID == 0) ?
+                fileRepo.findAllByDepartment_Id(departmentID) :
+                filesByUniversity;
+        Set<File> filesByTeacher = !(teacherID == 0) ?
+                fileRepo.findAllByTeacher_Id(teacherID) :
+                filesByUniversity;
+        Set<File> filesBySubj = !(subjectID == 0) ?
+                fileRepo.findAllBySubj_Id(subjectID) :
+                filesByUniversity;
 
         filesByUniversity.retainAll(filesByDepartment);
         filesByUniversity.retainAll(filesByTeacher);
@@ -89,22 +101,24 @@ public class FileService {
     public ResponseEntity<Object> downloadFile(Long fileID) throws FileNotFoundException {
         Optional<File> fileOpt = fileRepo.findById(fileID);
 
-        java.io.File file = new java.io.File(
-                uploadPath + java.io.File.separatorChar + fileOpt.get().getName()
-        );
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-        HttpHeaders headers = new HttpHeaders();
+        String fileName = fileOpt.get().getName();
 
-        // формирование хттп заголовков
-        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
+        java.io.File file = new java.io.File(
+                uploadPath + java.io.File.separatorChar + fileName
+        );
+
+        MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+        String mimeType = fileTypeMap.getContentType(fileName);
+
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
         return ResponseEntity.ok()
-                .headers(headers)
+                // Content-Disposition
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName)
+                // Content-Type
+                .contentType(MediaType.valueOf(mimeType))
+                // Content-Length
                 .contentLength(file.length())
-                .contentType(MediaType.parseMediaType("application/txt"))
                 .body(resource);
     }
 
