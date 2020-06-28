@@ -1,6 +1,7 @@
 package com.studentcloud.dbaccess.controller;
 
 import com.studentcloud.dbaccess.service.FileService;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -29,11 +30,11 @@ public class EditController {
     }
 
     @PostMapping("/delete")
-    public String deleteFile(@PathVariable Long fileID) {
+    public @URL String deleteFile(@PathVariable Long fileID) {
 
         fileService.deleteFile(fileID);
 
-        return "files";
+        return "redirect:/files";
     }
 
     @PostMapping("/{commentID}deleteComment")

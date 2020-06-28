@@ -1,8 +1,17 @@
 package com.studentcloud.dbaccess.service;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.PutObjectResult;
 import com.studentcloud.dbaccess.auth.User;
 import com.studentcloud.dbaccess.entities.*;
 import com.studentcloud.dbaccess.repo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class AddingService {
@@ -24,6 +34,11 @@ public class AddingService {
 
     @Value("${upload.path}")
     private String uploadPath;
+    @Value("${amazon.bucketname}")
+    private String bucketName;
+
+    @Autowired
+    private AmazonS3 s3client;
 
     public AddingService(FileRepo fileRepo, UniversityRepo universityRepo, TeacherRepo teacherRepo, DepartmentRepo departmentRepo, SubjectRepo subjectRepo, CommentRepo commentRepo, UserRepo userRepo, UserService userService) {
         this.fileRepo = fileRepo;
@@ -106,15 +121,18 @@ public class AddingService {
         if (file != null) {
             java.io.File uploadDir = new java.io.File(uploadPath);
 
+            if (!s3client.doesBucketExist(bucketName)) {
+                s3client.createBucket(bucketName);
+            }
+
             if (!uploadDir.exists()) {
                 if (!uploadDir.mkdir()) {
                     throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             }
 
-            StringBuilder resultFileNameBuilder = new StringBuilder();
+            StringBuilder resultFileNameBuilder = new StringBuilder(universityName);
             resultFileNameBuilder
-                    .append(universityName)
                     .append("-")
                     .append(departmentName)
                     .append("-")
@@ -128,7 +146,20 @@ public class AddingService {
 
             String resultFileName = resultFileNameBuilder.toString();
 
-            file.transferTo(new java.io.File(uploadDir.getAbsolutePath() + java.io.File.separatorChar + resultFileName));
+            java.io.File fileBuffer = new java.io.File(
+                    uploadDir.getAbsolutePath() + java.io.File.separatorChar + resultFileName
+            );
+
+            file.transferTo(fileBuffer);
+
+            s3client.putObject(
+                    bucketName,
+                    resultFileName,
+                    fileBuffer
+            );
+
+            fileBuffer.delete();
+
             return resultFileName;
         }
         else {

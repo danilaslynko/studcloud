@@ -1,11 +1,17 @@
 package com.studentcloud.dbaccess.service;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.studentcloud.dbaccess.entities.*;
 import com.studentcloud.dbaccess.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +23,8 @@ import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,9 +39,13 @@ public class FileService {
 
     @Autowired
     private ServletContext servletContext;
+    @Autowired
+    private AmazonS3 s3client;
 
     @Value("${upload.path}")
     private String uploadPath;
+    @Value("${amazon.bucketname}")
+    private String bucketName;
 
     public FileService(FileRepo fileRepo, UniversityRepo universityRepo, TeacherRepo teacherRepo, DepartmentRepo departmentRepo, SubjectRepo subjectRepo, CommentRepo commentRepo) {
         this.fileRepo = fileRepo;
@@ -97,29 +109,21 @@ public class FileService {
 
     public ResponseEntity<Object> downloadFile(Long fileID) throws FileNotFoundException {
         Optional<File> fileOpt = fileRepo.findById(fileID);
-
         String fileName = fileOpt.get().getName();
 
-        java.io.File file = new java.io.File(
-                uploadPath + java.io.File.separatorChar + fileName
-        );
+        S3Object object = s3client.getObject(bucketName, fileName);
+        ObjectMetadata metadata = object.getObjectMetadata();
 
-        MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
-        String mimeType = fileTypeMap.getContentType(fileName);
-
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        InputStreamResource stream = new InputStreamResource(object.getObjectContent());
 
         return ResponseEntity.ok()
-                // Content-Disposition
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName)
-                // Content-Type
-                .contentType(MediaType.valueOf(mimeType))
-                // Content-Length
-                .contentLength(file.length())
-                .body(resource);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+                .contentType(MediaType.valueOf(metadata.getContentType()))
+                .contentLength(metadata.getContentLength())
+                .body(stream);
     }
 
-    public void getUniversityFields(
+        public void getUniversityFields(
             Model model,
             String universityName,
             Long departmentID,
@@ -142,11 +146,10 @@ public class FileService {
 
     public void deleteFile(Long fileID) {
 
-        File fileEntity = fileRepo.findById(fileID).get();
-        java.io.File file = new java.io.File(fileEntity.getName());
-        file.delete();
+        File file = fileRepo.findById(fileID).get();
+        s3client.deleteObject(bucketName, file.getName());
 
-        fileRepo.delete(fileEntity);
+        fileRepo.delete(file);
 
     }
 

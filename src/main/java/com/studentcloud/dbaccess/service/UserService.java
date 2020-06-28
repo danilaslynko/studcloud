@@ -2,7 +2,6 @@ package com.studentcloud.dbaccess.service;
 
 import com.studentcloud.dbaccess.auth.Role;
 import com.studentcloud.dbaccess.auth.User;
-import com.studentcloud.dbaccess.controller.ControllerUtils;
 import com.studentcloud.dbaccess.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +64,7 @@ public class UserService implements UserDetailsService {
 
     public String addUser(User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            ControllerUtils.getErrors(bindingResult, model);
+            Utils.getErrors(bindingResult, model);
             return "registration";
 
         } else {
