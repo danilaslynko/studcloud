@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<body>
 <header th:insert="blocks/header :: header"/>
+<body>
 <div class="container mt-5 mb-5">
     <h1>Добавление файла</h1>
     <form action="/add" method="post" enctype="multipart/form-data">
@@ -20,6 +20,6 @@
         <button type="submit" class="btn btn-success">Добавить файл</button>
     </form>
 </div>
-<footer th:insert="blocks/footer :: footer"/>
 </body>
+<footer th:insert="blocks/footer :: footer"/>
 </html>

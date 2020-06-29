@@ -7,39 +7,40 @@
     <link rel="stylesheet" href="../static/registration.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<body>
 <header th:insert="blocks/header :: header"></header>
+<body>
 
-<h2>
+<h2 style="text-align: center">
     Новый пользователь
 </h2>
-<form action="/registration" method="post" class="alert alert-info mt-2">
+<form action="/registration" method="post" class="d-flex flex-md-column align-items-center mt-2">
     <label>
-        <input type="email" name="email" placeholder="Электронная почта"/>
+        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+               type="email" name="email" placeholder="Электронная почта"/>
     </label>
-    <span th:text="${emailError?.toString()}"/>
-    <br>
+    <span th:text="${emailError?.toString()}"></span>
     <label>
-        <input type="text" name="username" placeholder="Имя пользователя"/>
+        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+               type="text" name="username" placeholder="Имя пользователя"/>
     </label>
-    <span th:text="${usernameError?.toString()}"/>
-    <span th:text="${usernameExistsError?.toString()}"/>
-    <br>
+    <span th:text="${usernameError?.toString()}"></span>
+    <span th:text="${usernameExistsError?.toString()}"></span>
     <label>
-        <input type="password" name="password" placeholder="Пароль"/>
+        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+               type="password" name="password" placeholder="Пароль"/>
     </label>
-    <span th:text="${passwordDoesntMatchRegexError?.toString()}"/>
-    <span th:text="${passwordError?.toString()}"/>
-    <br>
+    <span th:text="${passwordDoesntMatchRegexError?.toString()}"></span>
+    <span th:text="${passwordError?.toString()}"></span>
     <label>
-        <input type="password" name="passwordValidation" placeholder="Подтвердите пароль"/>
+        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+               type="password" name="passwordValidation" placeholder="Подтвердите пароль"/>
     </label>
-    <span th:text="${passwordsDoesntEqualsError?.toString()}"/>
+    <span th:text="${passwordsDoesntEqualsError?.toString()}"></span>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-    <br>
-    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    <button style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+            type="submit" class="btn btn-primary">Зарегистрироваться</button>
 </form>
 
-<footer th:insert="blocks/footer :: footer"></footer>
 </body>
+<footer th:insert="blocks/footer :: footer"></footer>
 </html>

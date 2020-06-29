@@ -7,25 +7,27 @@
     <link rel="stylesheet" href="../static/login.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<body>
 <header th:insert="blocks/header :: header"/>
+<body>
 
 <div th:text="${message?.toString()}"/>
-    <form action="/login" method="post" class="mainContainer">
+    <form action="/login" method="post" class="d-flex flex-md-column align-items-center mainContainer">
         <label>
-            <input type="text" name="username" placeholder="Имя пользователя"/>
+            <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+                   type="text" name="username" placeholder="Имя пользователя"/>
         </label>
-        <br>
         <label>
-            <input type="password" name="password" placeholder="Пароль"/>
+            <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+                   type="password" name="password" placeholder="Пароль"/>
         </label>
         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-        <br>
-        <button type="submit" class="btn btn-primary">Войти</button>
+        <button style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+                type="submit" class="btn btn-primary">Войти</button>
+        <a href="/registration" class="mt-3" style="font: 110% sans-serif">
+            Регистрация
+        </a>
     </form>
-<a href="/registration" class="active">
-    Регистрация
-</a>
-<footer th:insert="blocks/footer :: footer"/>
+
 </body>
+<footer th:insert="blocks/footer :: footer"/>
 </html>

@@ -7,17 +7,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<body>
 <header th:insert="blocks/header :: header"/>
+<body>
 
-<h2 th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}"></h2>
+<h2 style="text-align: center" th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}"></h2>
 
 <div th:each="file : ${user.getFiles()}" class="container mt-5">
-    <a th:href="'/files/' + ${file.getId()}"
-       th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"
-        class=""/>
+    <a class="btn btn-outline-secondary"
+            th:href="'/files/' + ${file.getId()}"
+            th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
 </div>
 
-<footer th:insert="blocks/footer :: footer"/>
 </body>
+<footer th:insert="blocks/footer :: footer"/>
 </html>
