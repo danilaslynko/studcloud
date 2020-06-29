@@ -11,8 +11,8 @@
 <body>
 
 <h2 style="text-align: center" th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}"></h2>
-
-<div th:each="file : ${user.getFiles()}" class="container mt-5">
+<h3 style="margin-left: 14%" class="mt-2">Файлы, добавленные пользователем</h3>
+<div th:each="file : ${user.getFiles()}" class="container mt-2">
     <a class="btn btn-outline-secondary"
             th:href="'/files/' + ${file.getId()}"
             th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
