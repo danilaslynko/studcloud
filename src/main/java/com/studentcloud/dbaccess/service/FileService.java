@@ -1,17 +1,13 @@
 package com.studentcloud.dbaccess.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.studentcloud.dbaccess.entities.*;
 import com.studentcloud.dbaccess.repo.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
-import javax.activation.MimetypesFileTypeMap;
-import javax.servlet.ServletContext;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,24 +27,29 @@ public class FileService {
     final DepartmentRepo departmentRepo;
     final SubjectRepo subjectRepo;
     final CommentRepo commentRepo;
-
-    @Autowired
-    private ServletContext servletContext;
-    @Autowired
-    private AmazonS3 s3client;
+    private final AmazonS3 s3client;
 
     @Value("${upload.path}")
     private String uploadPath;
     @Value("${amazon.bucketname}")
     private String bucketName;
 
-    public FileService(FileRepo fileRepo, UniversityRepo universityRepo, TeacherRepo teacherRepo, DepartmentRepo departmentRepo, SubjectRepo subjectRepo, CommentRepo commentRepo) {
+    public FileService(
+            FileRepo fileRepo,
+            UniversityRepo universityRepo,
+            TeacherRepo teacherRepo,
+            DepartmentRepo departmentRepo,
+            SubjectRepo subjectRepo,
+            CommentRepo commentRepo,
+            AmazonS3 s3client
+    ) {
         this.fileRepo = fileRepo;
         this.universityRepo = universityRepo;
         this.teacherRepo = teacherRepo;
         this.departmentRepo = departmentRepo;
         this.subjectRepo = subjectRepo;
         this.commentRepo = commentRepo;
+        this.s3client = s3client;
     }
 
     public Iterable<University> getUniversities() {

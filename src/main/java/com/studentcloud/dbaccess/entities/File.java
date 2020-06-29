@@ -50,7 +50,7 @@ public class File {
 
     private Date date;
 
-    @OneToMany(mappedBy = "file")
+    @OneToMany(mappedBy = "file", cascade = CascadeType.ALL)
     public List<Comment> comments;
 
     public File(
