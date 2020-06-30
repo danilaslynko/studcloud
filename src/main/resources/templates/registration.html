@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <header th:insert="blocks/header :: header"></header>
-<body>
+<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
 
-<h2 style="text-align: center">
-    Новый пользователь
-</h2>
-<form action="/registration" method="post" class="d-flex flex-md-column align-items-center mt-2">
+<form action="/registration" method="post"
+      class="d-flex flex-md-column align-items-center shadow-lg"
+      style="background: lightblue; margin-left: 40%; margin-right: 40%; border-radius: 7px">
+    <h2 style="text-align: center">
+        Новый пользователь
+    </h2>
     <label>
         <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
                type="email" name="email" placeholder="Электронная почта"/>
@@ -38,7 +40,7 @@
     <span th:text="${passwordsDoesntEqualsError?.toString()}"></span>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
     <button style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
-            type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            type="submit" class="btn btn-primary mb-3">Зарегистрироваться</button>
 </form>
 
 </body>

@@ -7,22 +7,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <header th:insert="blocks/header :: header"></header>
-<body>
+<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
 
-<h2>
-    Изменение данных пользователя
-</h2>
-<form action="/user/update" class="alert alert-info mt-2" method="post">
-    <label>
-        <input type="email" name="email" placeholder="Электронная почта"/>
-    </label>
-    <br>
-    <label>
-        <input type="password" name="password" placeholder="Пароль" pattern="((?=.*\d)(?=.*[a-zA-Z]).{8,20})"/>
-    </label>
-    <br>
+<form action="/user/update" method="post"
+      class="d-flex flex-md-column align-items-center shadow-lg"
+      style="background: lightblue; padding: 1%; margin-left: 40%; margin-right: 40%; border-radius: 7px">
+    <h2 style="margin-top: 2%; text-align: center">
+        Изменение данных пользователя
+    </h2>
+    <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
+            type="email" name="email" placeholder="Электронная почта"/>
+    <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
+            type="password" name="password" placeholder="Пароль" pattern="((?=.*\d)(?=.*[a-zA-Z]).{8,20})"/>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-    <button type="submit">Сохранить изменения</button>
+    <button style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+            type="submit" class="btn btn-primary my-2">Сохранить изменения</button>
 </form>
 
 </body>

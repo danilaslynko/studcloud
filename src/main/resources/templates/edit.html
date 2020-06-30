@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <header th:insert="blocks/header :: header"></header>
-<body>
+<body style="margin-top: 87px; margin-bottom: 125px">
 
-<div>
+<div style="margin-top: 3%; padding-top: 2%">
     <h1>Файл</h1>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <form th:action="'/file/' + ${file.getId()} + '/edit/delete'" method="post">
@@ -20,23 +20,30 @@
     <div>
     </div>
     <div class="alert alert-info mt-2">
-        <h4>
+        <h4 style="margin-left: 2%">
             Обсуждение
         </h4>
-        <div th:each="message : ${file.getComments()}" class="alert alert-info mt-2">
+        <div th:each="message : ${file.getComments()}" class="d-flex flex-md-column"
+             style="
+                            margin-left: 2%;
+                            margin-top: 2%;
+                            margin-right: 2%;
+                            font: 100% sans-serif;
+                            background: whitesmoke;
+                            border-style: solid;
+                            border-width: thin;
+                            border-radius: 7px;
+                            border-color: darkgray">
             <form th:action="'/file/' + ${file.getId()} + '/edit/' + ${message.getId()} + 'deleteComment'" method="post">
-                <a th:text="'Дата: ' + ${message.getDate()}"/>
-                <br>
-                <a th:text="'Пользователь: ' + ${message.getUserName()}"/>
-                <br>
-                <a th:text="'Сообщение: ' + ${message.getMessage()}"/>
+                <h6 class="px-3 py-2" th:text="${message.getDate()}"></h6>
+                <h6 class="px-3 py-2" th:text="${message.getUserName()}"></h6>
+                <p class="px-3 pt-2" th:text="${message.getMessage()}"></p>
                 <input type="hidden" th:name="_csrf" th:value="${_csrf.token}">
                 <button type="submit" class="btn btn-success">Удалить комментарий</button>
             </form>
         </div>
     </div>
 </div>
-
 </body>
 <footer th:insert="blocks/footer :: footer"></footer>
 </html>

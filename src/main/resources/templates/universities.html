@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <header th:insert="blocks/header :: header"/>
-<body>
+<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
 
-<div class="container mt-5">
-    <h1>Вузы</h1>
+<div class="container">
+    <h1 style="margin-top: 3%">Вузы</h1>
     <div th:each="university : ${universities}" class="alert alert-info mt-2">
         <a
                 th:href="'/files/universities/' + ${university.getName()} + '?departmentID=0&teacherID=0&subjectID=0'"

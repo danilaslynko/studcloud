@@ -1,5 +1,6 @@
 package com.studentcloud.dbaccess.controller;
 
+import com.studentcloud.dbaccess.entities.File;
 import com.studentcloud.dbaccess.service.FileService;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class EditController {
 
     @PostMapping
     public String getEditPage(@RequestParam Long fileID, Model model) {
-        fileService.getEditPage(fileID, model);
+        File file = fileService.findById(fileID).get();
+        model.addAttribute("file", file);
 
         return "edit";
     }

@@ -4,20 +4,22 @@
     <title>Добавление файла</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <header th:insert="blocks/header :: header"/>
-<body>
-<div class="container mt-5 mb-5">
+<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
+<div class="container mb-5">
     <h1>Добавление файла</h1>
-    <form action="/add" method="post" enctype="multipart/form-data">
-        <input type="text" name="universityName" placeholder="ВУЗ" class="form-control" required><br>
-        <input type="text" name="departmentName" placeholder="Департамент" class="form-control" required><br>
-        <input type="text" name="teacherName" placeholder="Имя преподавателя" class="form-control" required><br>
-        <input type="text" name="subjectName" placeholder="Предмет" class="form-control" required><br>
-        <input type="text" name="fileName" placeholder="Имя файла" class="form-control" required><br>
-        <input type="file" name="file" required><br>
+    <form action="/add" method="post" enctype="multipart/form-data"
+            class="d-flex flex-md-column align-items-stretch">
+        <input type="text" name="universityName" placeholder="ВУЗ" class="form-control my-2" required>
+        <input type="text" name="departmentName" placeholder="Департамент" class="form-control my-2" required>
+        <input type="text" name="teacherName" placeholder="Имя преподавателя" class="form-control my-2" required>
+        <input type="text" name="subjectName" placeholder="Предмет" class="form-control my-2" required>
+        <input type="text" name="fileName" placeholder="Имя файла" class="form-control my-2" required>
+        <input type="file" name="file" required class="btn btn-outline-info my-2">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-        <button type="submit" class="btn btn-success">Добавить файл</button>
+        <button type="submit" class="btn btn-outline-primary my-2">Добавить файл</button>
     </form>
 </div>
 </body>
