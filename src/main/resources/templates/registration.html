@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="../static/registration.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<header th:insert="blocks/header :: header"></header>
-<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
+<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
 
+<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
+<div style="margin-top: 87px; padding-top: 2%; flex: 1 0 auto;" >
 <form action="/registration" method="post"
       class="d-flex flex-md-column align-items-center shadow-lg"
       style="background: lightblue; margin-left: 40%; margin-right: 40%; border-radius: 7px">
@@ -29,6 +30,7 @@
     <span th:text="${usernameExistsError?.toString()}"></span>
     <label>
         <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+               title="Пароль должен содержать цифры и буквы латинского алфавита и состоять из 8-20 символов"
                type="password" name="password" placeholder="Пароль"/>
     </label>
     <span th:text="${passwordDoesntMatchRegexError?.toString()}"></span>
@@ -42,7 +44,7 @@
     <button style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
             type="submit" class="btn btn-primary mb-3">Зарегистрироваться</button>
 </form>
-
+</div>
+<footer style="flex: 0 0 auto;"  th:insert="blocks/footer :: footer"></footer>
 </body>
-<footer th:insert="blocks/footer :: footer"></footer>
 </html>

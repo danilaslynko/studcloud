@@ -1,15 +1,16 @@
 package com.studentcloud.dbaccess.service;
 
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.studentcloud.dbaccess.auth.User;
 import com.studentcloud.dbaccess.entities.*;
 import com.studentcloud.dbaccess.repo.*;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.io.IOException;
 
 @Service
@@ -22,6 +23,7 @@ public class AddingService {
     final CommentRepo commentRepo;
     final UserRepo userRepo;
     final UserService userService;
+    final Logger logger;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -38,6 +40,7 @@ public class AddingService {
                          CommentRepo commentRepo,
                          UserRepo userRepo,
                          UserService userService,
+                         Logger logger,
                          AmazonS3 s3client
     ) {
         this.fileRepo = fileRepo;
@@ -48,6 +51,7 @@ public class AddingService {
         this.commentRepo = commentRepo;
         this.userRepo = userRepo;
         this.userService = userService;
+        this.logger = logger;
         this.s3client = s3client;
     }
 
@@ -106,7 +110,11 @@ public class AddingService {
                 user
         );
 
-        fileRepo.save(file);
+        try {
+            fileRepo.save(file);
+        } catch (IllegalArgumentException e) {
+            logger.warn(e.getLocalizedMessage());
+        }
 
     }
 
@@ -123,7 +131,11 @@ public class AddingService {
             java.io.File uploadDir = new java.io.File(uploadPath);
 
             if (!s3client.doesBucketExist(bucketName)) {
-                s3client.createBucket(bucketName);
+                try {
+                    s3client.createBucket(bucketName);
+                } catch (SdkClientException e) {
+
+                }
             }
 
             if (!uploadDir.exists()) {

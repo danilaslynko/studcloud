@@ -5,9 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<header th:insert="blocks/header :: header"/>
-<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
+<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
 
+<header style="margin-top: 87px; padding-top: 2%; flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
+<main style="flex: 1 0 auto;">
+    <h4 style="margin-left: 14%">Последние добавленные файлы</h4>
+    <div th:each="file : ${files}" class="container mt-3">
+        <span th:text="'Добавил ' + ${file.getUser().getUsername()} + ' ' + ${file.getDate().toString()}"></span>
+        <a class="btn btn-outline-secondary"
+           th:href="'/files/' + ${file.getId()}"
+           th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
+    </div>
+</main>
+<footer style="flex: 0 0 auto;" th:insert="blocks/footer :: footer"></footer>
 </body>
-<footer th:insert="blocks/footer :: footer"/>
 </html>

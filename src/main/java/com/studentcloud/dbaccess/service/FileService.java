@@ -137,7 +137,13 @@ public class FileService {
         model.addAttribute("subjects", subjects);
 
         Set<File> files = getFiles(universityName, departmentID, teacherID, subjectID);
-        model.addAttribute("files", files);
+
+        if (files.isEmpty()) {
+            model.addAttribute("emptyList",
+                    "Здесь пока пустовато... Но вы можете добавить файлы первым!");
+        } else {
+            model.addAttribute("files", files);
+        }
     }
 
     public void deleteFile(Long fileID) {
@@ -162,5 +168,9 @@ public class FileService {
     public void getEditPage(Long fileID, Model model) {
         File file = fileRepo.findById(fileID).get();
         model.addAttribute("file", file);
+    }
+
+    public Set<File> getAll() {
+        return fileRepo.findTop10ByOrderByIdDesc();
     }
 }

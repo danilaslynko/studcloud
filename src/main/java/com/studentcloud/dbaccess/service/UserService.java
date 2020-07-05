@@ -104,7 +104,7 @@ public class UserService implements UserDetailsService {
             userRepo.save(user);
         }
 
-        return "redirect:/login";
+        return "redirect:/login?registered";
     }
 
     public void sendActivationCode(User user) {

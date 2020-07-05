@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<header th:insert="blocks/header :: header"></header>
-<body style="margin-top: 87px; margin-bottom: 125px">
 
-<div style="margin-top: 3%; padding-top: 2%">
+<body style="margin-top: 87px; margin-bottom: 125px; display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
+<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
+<div style="margin-top: 3%; padding-top: 2%; flex: 1 0 auto;" >
     <h1>Файл</h1>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <form th:action="'/file/' + ${file.getId()} + '/edit/delete'" method="post">
@@ -44,6 +44,6 @@
         </div>
     </div>
 </div>
+<footer style="flex: 0 0 auto;"  th:insert="blocks/footer :: footer"></footer>
 </body>
-<footer th:insert="blocks/footer :: footer"></footer>
 </html>

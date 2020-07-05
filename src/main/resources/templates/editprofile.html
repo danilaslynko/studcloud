@@ -6,24 +6,27 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<header th:insert="blocks/header :: header"></header>
-<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
 
+<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
+<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
+<div style="flex: 1 0 auto; margin-top: 87px; padding-top: 2%; margin-left: 40%; margin-right: 40%">
 <form action="/user/update" method="post"
       class="d-flex flex-md-column align-items-center shadow-lg"
-      style="background: lightblue; padding: 1%; margin-left: 40%; margin-right: 40%; border-radius: 7px">
+      style="background: lightblue; padding: 5%; border-radius: 7px">
     <h2 style="margin-top: 2%; text-align: center">
         Изменение данных пользователя
     </h2>
-    <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
-            type="email" name="email" placeholder="Электронная почта"/>
-    <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
-            type="password" name="password" placeholder="Пароль" pattern="((?=.*\d)(?=.*[a-zA-Z]).{8,20})"/>
+    <input style="width: 90%; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
+            type="email" name="email" placeholder="Электронная почта"
+            readonly onfocus="this.removeAttribute('readonly');"/>
+    <input style="width: 90%; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
+            type="password" name="password" placeholder="Пароль" pattern="((?=.*\d)(?=.*[a-zA-Z]).{8,20})"
+            readonly onfocus="this.removeAttribute('readonly');"/>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-    <button style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
+    <button style="width: 90%; height: 35px; font: 110% sans-serif; text-align: center"
             type="submit" class="btn btn-primary my-2">Сохранить изменения</button>
 </form>
-
+</div>
+<footer style="flex: 0 0 auto;" th:insert="blocks/footer :: footer"></footer>
 </body>
-<footer th:insert="blocks/footer :: footer"></footer>
 </html>

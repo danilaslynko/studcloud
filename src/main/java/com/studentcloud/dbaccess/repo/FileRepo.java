@@ -23,4 +23,6 @@ public interface FileRepo extends CrudRepository<File, Long> {
     Set<File> findAllByUniversity_NameAndDepartment_IdAndTeacher_IdAndSubj_Id(String universityName, Long departmentID, Long teacherID, Long subjID);
 
     Set<File> findAllByUser(User user);
+
+    Set<File> findTop10ByOrderByIdDesc();
 }

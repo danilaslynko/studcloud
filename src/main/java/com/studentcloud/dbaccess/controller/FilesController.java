@@ -40,6 +40,10 @@ public class FilesController {
     ) {
         fileService.getUniversityFields(model, universityName, departmentID, teacherID, subjectID);
 
+        model.addAttribute("defaultDepartment", departmentID);
+        model.addAttribute("defaultTeacher", teacherID);
+        model.addAttribute("defaultSubject", subjectID);
+
         return "files";
     }
 

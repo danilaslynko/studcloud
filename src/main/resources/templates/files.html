@@ -5,16 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<header th:insert="blocks/header :: header"></header>
-<body style="margin-top: 87px; margin-bottom: 125px; padding-top: 2%">
-<div class="container">
+<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
+
+<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
+<div style="margin-top: 87px; padding-top: 2%; flex: 1 0 auto;" class="container">
     <form>
     <h3>Кафедра</h3>
     <select class="form-control" name="departmentID" id="departmentID">
         <option value="0">Все</option>
         <option th:each="department : ${departments}"
                 th:value="${department.getId()}"
-                th:text="${department.getName()}">
+                th:text="${department.getName()}"
+                th:selected="${department.getId()==defaultDepartment}">
         </option>
     </select>
     <h3>Препод</h3>
@@ -22,26 +24,29 @@
         <option value="0">Все</option>
         <option th:each="teacher : ${teachers}"
                 th:value="${teacher.getId()}"
-                th:text="${teacher.getName()}">
+                th:text="${teacher.getName()}"
+                th:selected="${teacher.getId()==defaultTeacher}">
         </option>
     </select>
     <h3>Предмет</h3>
-    <select class="form-control" name="subjectID" id="subjectID">
+    <select th:selected="${defaultSubject}" class="form-control" name="subjectID" id="subjectID">
         <option value="0">Все</option>
         <option th:each="subj : ${subjects}"
                 th:value="${subj.getId()}"
-                th:text="${subj.getName()}">
+                th:text="${subj.getName()}"
+                th:selected="${subj.getId()==defaultSubject}">
         </option>
     </select>
     <button type="submit" class="btn btn-success mt-3">Применить</button>
     </form>
-</div>
-<div th:each="file : ${files}" class="container mt-3">
-    <a class="btn btn-outline-secondary"
-            th:href="'/files/' + ${file.getId()}"
-            th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
+    <span style="text-align: center; font-size: 110%" th:text="${emptyList?.toString()}"></span>
+    <div th:each="file : ${files}" class="container mt-3">
+        <a class="btn btn-outline-secondary"
+           th:href="'/files/' + ${file.getId()}"
+           th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
+    </div>
 </div>
 
+<footer style="flex: 0 0 auto;" th:insert="blocks/footer :: footer"></footer>
 </body>
-<footer th:insert="blocks/footer :: footer"/>
 </html>
