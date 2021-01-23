@@ -1,50 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Регистрация</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="../static/registration.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-</head>
-<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/common.css">
+<link rel="stylesheet" href="../static/user.css">
 
-<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
-<div style="margin-top: 87px; padding-top: 2%; flex: 1 0 auto;" >
-<form action="/registration" method="post"
-      class="d-flex flex-md-column align-items-center shadow-lg"
-      style="background: lightblue; margin-left: 40%; margin-right: 40%; border-radius: 7px">
-    <h2 style="text-align: center">
-        Новый пользователь
-    </h2>
-    <label>
-        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
-               type="email" name="email" placeholder="Электронная почта"/>
+<head>
+    <title>Регистрация</title>
+</head>
+<body>
+
+<header th:insert="blocks/header.html"></header>
+<section>
+<form action="/registration" method="post" class="login-form">
+    <h2 class="login-form-element">Новый пользователь</h2>
+    <label  class="login-form-element">
+        <input type="email" name="email" placeholder="Электронная почта"/>
     </label>
-    <span th:text="${emailError?.toString()}"></span>
-    <label>
-        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
-               type="text" name="username" placeholder="Имя пользователя"/>
+    <span class="login-form-element" th:text="${emailError?.toString()}"></span>
+    <label class="login-form-element">
+        <input type="text" name="username" placeholder="Имя пользователя"/>
     </label>
-    <span th:text="${usernameError?.toString()}"></span>
-    <span th:text="${usernameExistsError?.toString()}"></span>
-    <label>
-        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
-               title="Пароль должен содержать цифры и буквы латинского алфавита и состоять из 8-20 символов"
+    <span class="login-form-element" th:text="${usernameError?.toString()}"></span>
+    <span class="login-form-element" th:text="${usernameExistsError?.toString()}"></span>
+    <label class="login-form-element">
+        <input title="Пароль должен содержать цифры и буквы латинского алфавита и состоять из 8-20 символов"
                type="password" name="password" placeholder="Пароль"/>
     </label>
-    <span th:text="${passwordDoesntMatchRegexError?.toString()}"></span>
-    <span th:text="${passwordError?.toString()}"></span>
-    <label>
-        <input style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
-               type="password" name="passwordValidation" placeholder="Подтвердите пароль"/>
+    <span class="login-form-element" th:text="${passwordDoesntMatchRegexError?.toString()}"></span>
+    <span class="login-form-element" th:text="${passwordError?.toString()}"></span>
+    <label class="login-form-element">
+        <input type="password" name="passwordValidation" placeholder="Подтвердите пароль"/>
     </label>
-    <span th:text="${passwordsDoesntEqualsError?.toString()}"></span>
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-    <button style="width: 250px; height: 35px; font: 110% sans-serif; text-align: center"
-            type="submit" class="btn btn-primary mb-3">Зарегистрироваться</button>
+    <span class="login-form-element" th:text="${passwordsDoesntEqualsError?.toString()}"></span>
+    <input class="login-form-element" type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    <button type="submit" class="btn btn-primary mb-3 login-form-element">Зарегистрироваться</button>
 </form>
-</div>
-<footer style="flex: 0 0 auto;"  th:insert="blocks/footer :: footer"></footer>
+</section>
+<footer th:insert="blocks/footer.html"></footer>
 </body>
 </html>

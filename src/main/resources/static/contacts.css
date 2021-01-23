@@ -1,7 +1,4 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-div {
-	margin-left: 15%
+section {
+    margin-left: 15%;
+    margin-top: 5%;
 }

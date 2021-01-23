@@ -1,15 +1,18 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../static/common.css">
+
 <head>
     <title>Добавление файла</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
-<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
+<body >
 
-<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
-<div style="margin-top: 87px; padding-top: 2%; flex: 1 0 auto;" class="container mb-5">
+<header th:insert="blocks/header.html"></header>
+<section class="container mt-4">
     <h1>Добавление файла</h1>
     <form action="/add" method="post" enctype="multipart/form-data"
             class="d-flex flex-md-column align-items-stretch">
@@ -22,7 +25,7 @@
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <button type="submit" class="btn btn-outline-primary my-2">Добавить файл</button>
     </form>
-</div>
-<footer style="flex: 0 0 auto;" th:insert="blocks/footer :: footer"></footer>
+</section>
+<footer th:insert="blocks/footer.html"></footer>
 </body>
 </html>

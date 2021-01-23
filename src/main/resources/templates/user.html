@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/common.css">
 <link rel="stylesheet" href="../static/user.css">
-<head>
-    <meta charset="UTF-8">
-    <title>Профиль</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-</head>
-<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
 
-<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
-<div style="margin-top: 87px; padding-top: 2%; flex: 1 0 auto;" >
-<h2 style="text-align: center" th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}"></h2>
-<h3 style="margin-left: 14%" class="mt-2">Файлы, добавленные пользователем</h3>
+<head>
+    <title>Профиль</title>
+</head>
+
+<body>
+<header th:insert="blocks/header.html"></header>
+<section>
+<h2 th:text="${user.getUsername()} + ', ID: ' + ${user.getId()}"></h2>
+<h3 class="mt-2">Файлы, добавленные пользователем</h3>
 <div th:each="file : ${user.getFiles()}" class="container mt-2">
     <a class="btn btn-outline-secondary"
             th:href="'/files/' + ${file.getId()}"
             th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
 </div>
-</div>
-<footer style="flex: 0 0 auto;"  th:insert="blocks/footer :: footer"/>
+</section>
+<footer th:insert="blocks/footer.html"></footer>
 </body>
 </html>

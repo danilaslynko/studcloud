@@ -1,14 +1,17 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link rel="stylesheet" href="../static/common.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
 <head>
     <title>Все файлы</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
+<body>
 
-<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
-<div style="margin-top: 87px; padding-top: 2%; flex: 1 0 auto;" class="container">
+<header th:insert="blocks/header.html"></header>
+<section class="container">
     <form>
     <h3>Кафедра</h3>
     <select class="form-control" name="departmentID" id="departmentID">
@@ -39,14 +42,14 @@
     </select>
     <button type="submit" class="btn btn-success mt-3">Применить</button>
     </form>
-    <span style="text-align: center; font-size: 110%" th:text="${emptyList?.toString()}"></span>
+    <span th:text="${emptyList?.toString()}"></span>
     <div th:each="file : ${files}" class="container mt-3">
         <a class="btn btn-outline-secondary"
            th:href="'/files/' + ${file.getId()}"
            th:text="${file.getName()} + ' ' + ${file.getTeacher().getName()} + ' ' + ${file.getSubj().getName()}"></a>
     </div>
-</div>
+</section>
 
-<footer style="flex: 0 0 auto;" th:insert="blocks/footer :: footer"></footer>
+<footer th:insert="blocks/footer.html"></footer>
 </body>
 </html>

@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/common.css">
+
 <head>
-    <meta charset="UTF-8">
     <title>Регистрация</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 
-<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
-<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
-<div style="flex: 1 0 auto; margin-top: 87px; padding-top: 2%; margin-left: 40%; margin-right: 40%">
-<form action="/user/update" method="post"
-      class="d-flex flex-md-column align-items-center shadow-lg"
-      style="background: lightblue; padding: 5%; border-radius: 7px">
-    <h2 style="margin-top: 2%; text-align: center">
-        Изменение данных пользователя
-    </h2>
-    <input style="width: 90%; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
-            type="email" name="email" placeholder="Электронная почта"
+<body>
+<header th:insert="blocks/header.html"></header>
+<section>
+<form action="/user/update" method="post">
+    <h2>Изменение данных пользователя</h2>
+    <input type="email" name="email" placeholder="Электронная почта"
             readonly onfocus="this.removeAttribute('readonly');"/>
-    <input style="width: 90%; height: 35px; font: 110% sans-serif; text-align: center" class="my-2"
-            type="password" name="password" placeholder="Пароль" pattern="((?=.*\d)(?=.*[a-zA-Z]).{8,20})"
+    <input type="password" name="password" placeholder="Пароль" pattern="((?=.*\d)(?=.*[a-zA-Z]).{8,20})"
             readonly onfocus="this.removeAttribute('readonly');"/>
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-    <button style="width: 90%; height: 35px; font: 110% sans-serif; text-align: center"
-            type="submit" class="btn btn-primary my-2">Сохранить изменения</button>
+    <button type="submit" class="btn btn-primary my-2">Сохранить изменения</button>
 </form>
-</div>
-<footer style="flex: 0 0 auto;" th:insert="blocks/footer :: footer"></footer>
+</section>
+<footer th:insert="blocks/footer.html"></footer>
 </body>
 </html>

@@ -1,24 +1,24 @@
 <!DOCTYPE HTML>
-<link rel="stylesheet" type="text/css" href="../static/contacts.css">
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/common.css">
+<link rel="stylesheet" href="../static/contacts.css">
+
 <head>
     <title id="title">StudCloud - главная</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 
-<body style="min-height: 100%; display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
-<header style="flex: 0 0 auto" th:insert="blocks/header :: header"></header>
-<div style="flex: 1 0 auto; margin-top: 87px; padding-top: 2%;">
-    <h2 style="margin-left: 14%">
-        Привет!
-    </h2>
-    <label id="label" style="margin-left: 14%">
+<body>
+<header th:insert="blocks/header.html"></header>
+<section>
+    <h2>Привет!</h2>
+    <label id="label">
         Это мой первый более или менее серьезный проект на джаве. Разумеется, в нем не может не быть горы багов,<br>
         поэтому обо всех проблемах стоит сообщать. Сообщать лучше всего сюда:--><a href="http://vk.com/dslynko">вконтактик</a><--<br>На этом пока все! Возможно, здесь будут ссылки на мои следующие шыдевры :3
     </label>
-</div>
-
+</section>
+<footer th:insert="blocks/footer.html"></footer>
 </body>
-<footer style="flex: 0 0 auto;" th:insert="blocks/footer :: footer"></footer>
 </html>

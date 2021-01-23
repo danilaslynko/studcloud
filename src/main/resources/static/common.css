@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+.studcloud-button {
+    text-align: center;
+    margin: 1rem;
+    font-weight: 400;
+}
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-bar-button {
+    padding: 0.5rem;
+    color: #343a40;
+    margin: 0.5rem;
+}
+section {
+    flex: 1 0 auto;
+}
+footer {
+    padding: 1rem;
+    height: 17%;
+    flex: 0 0 auto;
+    background-color: #fff !important;
+    border-top: 1px solid #dee2e6 !important;
+    box-shadow: 0 0 3rem rgba(0, 0, 0, 0.175) !important;
+}

@@ -1,23 +1,26 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/common.css">
+
 <head>
     <title>Все файлы</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
-<body style="display: flex; flex-direction: column; height: 100%; height: -webkit-fill-available;">
 
-<header style="flex: 0 0 auto;" th:insert="blocks/header :: header"></header>
-<div style="margin-top: 87px; padding-top: 2%; flex: 1 0 auto;"  class="container">
-    <h1 style="margin-top: 3%">Вузы</h1>
+<body>
+<header th:insert="blocks/header.html"></header>
+<section class="container">
+    <h1>Вузы</h1>
     <div th:each="university : ${universities}" class="alert alert-info mt-2">
         <a
                 th:href="'/files/universities/' + ${university.getName()} + '?departmentID=0&teacherID=0&subjectID=0'"
                 th:text="${university.getName()}">
         </a>
     </div>
-</div>
+</section>
 
-<footer style="flex: 0 0 auto;"  th:insert="blocks/footer :: footer"/>
+<footer th:insert="blocks/footer.html"></footer>
 </body>
 </html>

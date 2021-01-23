@@ -1,25 +1,20 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-
-<header style="z-index: 100; position: fixed; top: 0; width: 100%;" fragment="header">
-    <div class="d-flex flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <a class="my-0 mr-md-auto font-weight-normal btn btn-block"
-                style="width: 120px" href="/">StudCloud :D</a>
-        <nav class="d-flex flex-column flex-md-row align-items-center my-2 my-md-0 mr-md-3 align-bottom">
-            <a class="p-2 text-dark" href="/files">Все файлы</a>
-            <a class="p-2 text-dark" href="/add">Добавить файл</a>
-            <a class="p-2 text-dark" href="/contacts">Наши контакты</a>
-            <a sec:authorize="isAuthenticated()" class="p-2 text-dark" href="/user/">Профиль</a>
-            <a sec:authorize="isAuthenticated()" class="p-2 text-dark" href="/user/update">Редактировать данные</a>
-            <div sec:authorize="isAuthenticated()" style="float: right" class="p-2">
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" class="btn btn-success" value="Выйти"/>
-                </form>
-            </div>
-            <div sec:authorize="!isAuthenticated()" style="float: right" class="p-2">
-                <form action="/login">
-                    <input type="submit" class="btn btn-success" value="Войти"/>
-                </form>
-            </div>
-        </nav>
+    <a class="studcloud-button" href="/">StudCloud :D</a>
+    <div class="nav-bar">
+        <a sec:authorize="isAuthenticated()" class="nav-bar-button" href="/user/update">Редактировать данные</a>
+        <a sec:authorize="isAuthenticated()" class="nav-bar-button" href="/user/">Профиль</a>
+        <a class="nav-bar-button" href="/files">Все файлы</a>
+        <a class="nav-bar-button" href="/add">Добавить файл</a>
+        <a class="nav-bar-button" href="/contacts">Наши контакты</a>
     </div>
-</header>
+    <div>
+        <div sec:authorize="!isAuthenticated()" class="p-2 log-button">
+            <form action="/login">
+                <input type="submit" class="btn btn-success p-2" value="Войти"/>
+            </form>
+        </div>
+        <div sec:authorize="isAuthenticated()" class="p-2 log-button">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" class="btn btn-success p-2" value="Выйти"/>
+            </form>
+        </div>
+    </div>
